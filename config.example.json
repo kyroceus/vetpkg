@@ -1,0 +1,16 @@
+{
+  "analyzer": {
+    "backend": "claude"
+  },
+  "claude": {
+    "model": "claude-sonnet-4-6"
+  },
+  "ollama": {
+    "endpoint": "http://localhost:11434",
+    "model": "llama3.1"
+  },
+  "general": {
+    "makepkg_path": "",
+    "auto_approve_low_risk": false
+  }
+}
