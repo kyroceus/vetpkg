@@ -23,8 +23,9 @@ type ClaudeConfig struct {
 }
 
 type OllamaConfig struct {
-	Endpoint string `json:"endpoint"`
-	Model    string `json:"model"`
+	Endpoint       string `json:"endpoint"`
+	Model          string `json:"model"`
+	TimeoutSeconds int    `json:"timeout_seconds"`
 }
 
 type GeneralConfig struct {
@@ -40,7 +41,7 @@ func Load() (*Config, error) {
 	cfg := &Config{
 		Analyzer: AnalyzerConfig{Backend: "claude"},
 		Claude:   ClaudeConfig{Model: "claude-sonnet-4-6"},
-		Ollama:   OllamaConfig{Endpoint: "http://localhost:11434", Model: "llama3.1"},
+		Ollama:   OllamaConfig{Endpoint: "http://localhost:11434", Model: "llama3.1", TimeoutSeconds: 300},
 		General:  GeneralConfig{},
 	}
 

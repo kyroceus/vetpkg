@@ -8,6 +8,7 @@ import (
 	"regexp"
 	"strings"
 	"syscall"
+	"time"
 
 	"vetpkg/internal/analyzer"
 	"vetpkg/internal/cache"
@@ -159,12 +160,12 @@ func runLLM(cfg *config.Config, content, unified string) *analyzer.Result {
 	case "claude":
 		a = &analyzer.ClaudeAnalyzer{APIKey: cfg.Claude.APIKey, Model: cfg.Claude.Model}
 	case "ollama":
-		a = &analyzer.OllamaAnalyzer{Endpoint: cfg.Ollama.Endpoint, Model: cfg.Ollama.Model}
+		a = &analyzer.OllamaAnalyzer{Endpoint: cfg.Ollama.Endpoint, Model: cfg.Ollama.Model, Timeout: time.Duration(cfg.Ollama.TimeoutSeconds) * time.Second}
 	case "multi":
 		a = &analyzer.MultiAnalyzer{
 			Backends: []analyzer.Analyzer{
 				&analyzer.ClaudeAnalyzer{APIKey: cfg.Claude.APIKey, Model: cfg.Claude.Model},
-				&analyzer.OllamaAnalyzer{Endpoint: cfg.Ollama.Endpoint, Model: cfg.Ollama.Model},
+				&analyzer.OllamaAnalyzer{Endpoint: cfg.Ollama.Endpoint, Model: cfg.Ollama.Model, Timeout: time.Duration(cfg.Ollama.TimeoutSeconds) * time.Second},
 			},
 		}
 	default:
